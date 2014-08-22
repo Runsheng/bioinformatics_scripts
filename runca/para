@@ -25,6 +25,7 @@ ovlHashBlockLength = 180000000
 merOverlapperThreads = 12
 merOverlapperSeedBatchSize = 400000
 merOverlapperExtendBatchSize = 400000
+batThreads=12
 cnsConcurrency = 12
 fakeUIDs = 1
 
