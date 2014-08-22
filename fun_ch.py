@@ -1,6 +1,7 @@
 # read the range from bed file "cov"
 # read the range of repeat regions from rmsk file "rmsk"
 # print the number of overlap nucleotides and the total number of 0 coverage and the repeat regions
+# runsheng 06/22/2014
 cov=open("coverage0.txt").readlines()
 rmsk=open("rmsk.txt").readlines()
 def cov_no(cov, rmsk, chr, repeattype):
@@ -11,7 +12,7 @@ def cov_no(cov, rmsk, chr, repeattype):
         example: bin swScore milliDiv    milliDel    milliIns    genoName    genoStart   genoEnd genoLeft    strand  repName repClass    repFamily   repStart    repEnd  repLeft id  repClass_no
     3. chr, use "I","II"... or "all"
         the chromosome number, "I","II" etc in my bed file, but "chrI", "chrII" in rmsk file
-    4. repeattype, the type of repClass, can be "DNA","DNA?","LINE","Low_complexity","LTR","RC","rRNA","Simple_repeat",""Satellite"",SINE","Unknown" 
+    4. repeattype, the type of repClass, can be "DNA","DNA?","LINE","Low_complexity","LTR","RC","rRNA","Simple_repeat",""Satellite","SINE","Unknown" 
     """
     # the operation of "set |"" instead of "list +"" give little benefit to the speed
     cov_ch=[]
@@ -38,6 +39,7 @@ def cov_no(cov, rmsk, chr, repeattype):
 #ali=cov_no(cov, rmsk, "I", "LINE")
 f=open("foo.txt", "w")
 
+#example of the function
 for chr in ["I","II","III","IV","V","X"]:
     for repeattype in ["DNA","DNA?","LINE","Low_complexity","LTR","RC","rRNA","Simple_repeat","Satellite","SINE","Unknown"]:
         ov=cov_no(cov, rmsk, chr, repeattype)

@@ -1,0 +1,19 @@
+cat ce1.fastq 1.fastq 2.fastq 3.fastq 4.fastq 5.fastq 6.fastq 7.fastq 8.fastq 9.fastq>s1.fastq
+cat s1.fastq 2.fastq > s2.fastq
+cat s2.fastq 3.fastq > s3.fastq
+cat s3.fastq 4.fastq > s4.fastq
+cat s4.fastq 5.fastq > s5.fastq
+cat s5.fastq 6.fastq > s6.fastq
+cat s6.fastq 7.fastq > s7.fastq
+cat s7.fastq 8.fastq > s8.fastq
+cat s8.fastq 9.fastq > s9.fastq
+cat s9.fastq 10.fastq > s10.fastq
+cat s10.fastq 11.fastq > s11.fastq
+cat s11.fastq 12.fastq > s12.fastq
+cat s12.fastq 13.fastq > s13.fastq
+cat s13.fastq 14.fastq > s14.fastq
+cat s14.fastq 15.fastq > s15.fastq
+cat s15.fastq 16.fastq > s16.fastq
+cat s16.fastq 17.fastq > s17.fastq
+cat s17.fastq 18.fastq > s18.fastq
+cat s18.fastq 19.fastq > s19.fastq
