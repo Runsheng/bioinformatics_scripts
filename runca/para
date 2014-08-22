@@ -12,9 +12,9 @@ utgGraphErrorLimit=0
 utgMergeErrorRate=0.03
 utgMergeErrorLimit=0
 
-# memory management options
-frgCorrBatchSize = 400000
+# system options
 frgCorrThreads = 12
+frgCorrBatchSize = 400000
 ovlCorrConcurrency = 12
 ovlCorrBatchSize = 400000
 merylMemory = -segments 12 -threads 12
@@ -27,3 +27,9 @@ merOverlapperSeedBatchSize = 400000
 merOverlapperExtendBatchSize = 400000
 cnsConcurrency = 12
 fakeUIDs = 1
+
+#the older version of the 
+#./wgs-8.1/Linux-amd64/bin/runCA -p longelegans -d ce12_ammembler \
+#ovlMerSize=31 unitigger=bogart utgGraphErrorRate=0.003 utgMergeErrorRate=0.0045 \
+#ovlMinlen=800 \
+#ovlStoreMemory=4096 mbtThreads=8 ovlThreads=8 ovlHashBits=25 merOverlapperThreads=8 ce12.frg
