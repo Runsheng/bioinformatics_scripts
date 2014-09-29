@@ -1,0 +1,32 @@
+# A manifest file can contain comment lines, these start with the #-character
+
+# First part of a manifest: defining some basic things
+project = ce12
+job = genome,denovo,accurate
+
+#The parameter was not used for one kind of reads, so the settings are all asigned to COMMON_SETTINGS
+parameters = COMMON_SETTINGS \
+                -GE:not=14 \ #using 14 threads
+                -SK:not=8 \#useing 8 threads for alignment (considering the RAM use)
+                -AS:nop=2 \ # num_of_passes=2, just use 2 passes
+                -AS:ard=no \ # turn off automatic_repeat_detection by coverage, cause the long read gets low coverage in some repeat region
+                -AS:sd=on \ #turn on spoiler_detection, in case some chimeric read was invoved in the contigs, this option will allow MIRA cut these contigs back
+                -AS:mrpc=2 \ # minimum_reads_per_contig is 2
+                -CL:qcmq=15 \ # clipping the nuclitides with qc<15
+                -CL:pec=no \ # switch off the proposed end clipping
+                -SK:bph=31 \ # word hash size
+                -SK:pr=97 \ # relative percentage of exact word matches in an approximate overlap, in runca, obtErrorRate=0.03
+                -AL:bip=1 \ # allow the least mismatch
+                -AL:mo=800 \ # at least 800bp overlap, in runca, ovlMinLen=800
+                -AL:ms=800 \ # at least 800 score in the overlap
+                -AL:mrs=97 \ #  min % of matching between two reads to be considered for assembly, in runca, utgMergeErrorRate=0.03
+                -CO:fnicpst=yes \ # do not use IUPAC base, turn this on only because "quast" do not accept IUPAC bases except N
+                -OUT:orc=no
+                -OUT:orm=no
+
+# The second part defines the sequencing data MIRA should load and assemble
+readgroup = ce12_text
+data = ce12.fastq
+technology = text
+
+#use 
