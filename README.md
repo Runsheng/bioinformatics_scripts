@@ -1,6 +1,4 @@
-#bioinformatics_scripts
-======================
-
+#Collection of Raw bioinformatics scripts before Code refactoring
 * bioinformatics scripts written in python or R
 * miranda_extract.py: extract the miRanda miRNA target prediction results
 * factor_no.r: to parse the factor col and turn them into numbers
