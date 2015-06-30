@@ -23,12 +23,12 @@ def phred_to_number(fastqfile,scorefile="score.txt"):
     foo_all=open(scorefile,"w")
 
     for n in range(0,count):
-        name = cefastq[4*n]
+        name = fastq[4*n]
         foo_all.write(name)
         foo_all.write("\t")
 
-        qualityscore=cefastq[4*n+3]
-        #Note the last word is "\n"
+        qualityscore=fastq[4*n+3]
+        #  Note the last word in qyalityscore is "\n"
         for i in range(0,(len(qualityscore)-1)):
             singleq=qualityscore[i]
             if i <len(qualityscore)-2:
@@ -38,4 +38,4 @@ def phred_to_number(fastqfile,scorefile="score.txt"):
                 foo_all.write(str(phred[singleq]))
                 foo_all.write("\n")
     foo_all.close()
-    foo_normalize.close()
+    #foo_normalize.close()
