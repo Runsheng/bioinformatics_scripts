@@ -3,7 +3,7 @@
 def orthsplit2(filename, col1, col2):
 	"""
 	This function take a tsv file and two coluomn indicater as input,
-	remove all dupilication in each lines
+	remove all duplication in each lines
 	and write a new file
 	"""
 	lines=open(filename).readlines()

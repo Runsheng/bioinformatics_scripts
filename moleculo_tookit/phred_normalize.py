@@ -21,16 +21,14 @@ for n in range(0,count):
                 qualityscore=qualityscore_line[i]
                 qualityscore_number=phred[qualityscore]
                 qualityscore_sum=qualityscore_sum+qualityscore_number
-            qualityscore_average=qualityscore_sum/interval
-            foo_normalize.write(str(qualityscore_average))
+            foo_normalize.write(str(qualityscore_sum))
             foo_normalize.write("\t")
         if cut ==50:
             for i in range(interval*(cut-1),interval*cut):
                 qualityscore=qualityscore_line[i]
                 qualityscore_number=phred[qualityscore]
                 qualityscore_sum=qualityscore_sum+qualityscore_number
-            qualityscore_average=qualityscore_sum/interval
-            foo_normalize.write(str(qualityscore_average))
+            foo_normalize.write(str(qualityscore_sum))
             foo_normalize.write("\n")
 foo_normalize.close()
 
