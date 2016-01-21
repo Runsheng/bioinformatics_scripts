@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# runsheng 2015/10/02
 
 import argparse
 from Bio import SeqIO
