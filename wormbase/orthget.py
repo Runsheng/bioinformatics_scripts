@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# Runsheng, 2016/01/25
 # get a function to wrap all the para into one function to run in shell
 import argparse
 
@@ -43,10 +45,11 @@ def sp2_extract(gene_l, name):
 
 
 if __name__=="__main__":
-    parser = argparse.ArgumentParser(description="""
+    parser = argparse.ArgumentParser(description="""\n
+        To get the 1:n orthology pairs of C.elegans:human, using the orthology table for C.elegans \n
         Example: python orthget.py -f c_elegans.PRJNA275000.WS250.orthologs.txt -s Homo sapiens -o 2.txt #get the c.elegans orthlog with human form the file.
         """)
-    parser.add_argument("--wormbase_orth_file","-f", help= "wormbase orthlog table can be fetched from wombase ftp directly")
+    parser.add_argument("--wormbase_orth_file","-f", help= "WormBase ortholog table can be fetched from wombase ftp directly")
     parser.add_argument("--species_name", "-s")
     parser.add_argument("--outfile", "-o")
     args = parser.parse_args()
@@ -63,3 +66,4 @@ if __name__=="__main__":
 
 
 # example python orthget.py -f "c_elegans.PRJNA275000.WS250.orthologs.txt" -s "Homo sapiens" -o 2.txt
+
