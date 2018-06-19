@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+import argparse
 
 def phred_to_number(fastqfile,scorefile="score.txt"):
     '''
@@ -39,3 +40,12 @@ def phred_to_number(fastqfile,scorefile="score.txt"):
                 foo_all.write("\n")
     foo_all.close()
     #foo_normalize.close()
+
+if __name__=="__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-f", "--filename",help="the fastq file you use here")
+    args = parser.parse_args()
+
+    # main code
+    phred_to_number(args.filename)
+    print "The phred scores of %s have been written to %s" % (args.filename, "score.txt")
