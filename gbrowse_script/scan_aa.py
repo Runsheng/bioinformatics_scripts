@@ -10,7 +10,7 @@ import logging
 
 def scan_full_pr(fastafile):
     """
-    simply scan off the
+    simply scan off the protein, try to find the start condon encoded M in the start
     """
     n_full=0
     n=0
