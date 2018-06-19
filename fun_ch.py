@@ -2,8 +2,6 @@
 # read the range of repeat regions from rmsk file "rmsk"
 # print the number of overlap nucleotides and the total number of 0 coverage and the repeat regions
 # runsheng 06/22/2014
-cov=open("coverage0.txt").readlines()
-rmsk=open("rmsk.txt").readlines()
 def cov_no(cov, rmsk, chr, repeattype):
     """
     This function takes 4 parameters,
@@ -36,15 +34,20 @@ def cov_no(cov, rmsk, chr, repeattype):
     print len(set(cov_ch)&set(rmsk_ch))
     return(chr, repeattype, len(cov_ch), len(rmsk_ch), len(set(cov_ch)&set(rmsk_ch)))
 
-#ali=cov_no(cov, rmsk, "I", "LINE")
-f=open("foo.txt", "w")
+if __name__=="__main__":
+    #ali=cov_no(cov, rmsk, "I", "LINE")
+    def test():
+        cov=open("coverage0.txt").readlines()
+        rmsk=open("rmsk.txt").readlines()
 
-#example of the function
-for chr in ["I","II","III","IV","V","X"]:
-    for repeattype in ["DNA","DNA?","LINE","Low_complexity","LTR","RC","rRNA","Simple_repeat","Satellite","SINE","Unknown"]:
-        ov=cov_no(cov, rmsk, chr, repeattype)
-        print ov
-        f.write(str(ov))
-        f.write("\n")
+        f=open("foo.txt", "w")
+        #example of the function
+        for chr in ["I","II","III","IV","V","X"]:
+            for repeattype in ["DNA","DNA?","LINE","Low_complexity","LTR","RC","rRNA","Simple_repeat","Satellite","SINE","Unknown"]:
+                ov=cov_no(cov, rmsk, chr, repeattype)
+                print ov
+                f.write(str(ov))
+                f.write("\n")
 
-f.close()
+        f.close()
+    pass
