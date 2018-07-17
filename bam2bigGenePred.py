@@ -186,7 +186,7 @@ def sam_to_bigGenePred(record):
     return bigg
 
 
- if __name__=="__main__":
+if __name__=="__main__":
  	import argparse
  	parser=argparse.ArgumentParser()
  	parser.add_argument("-b", "--bamfile",
