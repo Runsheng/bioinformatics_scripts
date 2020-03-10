@@ -2,6 +2,8 @@
 # read the range of repeat regions from rmsk file "rmsk"
 # print the number of overlap nucleotides and the total number of 0 coverage and the repeat regions
 # runsheng 06/22/2014
+
+
 def cov_no(cov, rmsk, chr, repeattype):
     """
     This function takes 4 parameters,
@@ -30,9 +32,10 @@ def cov_no(cov, rmsk, chr, repeattype):
                 if line.split("\t")[11] == repeattype:
                     b=range(int(line.split("\t")[6]),int(line.split("\t")[7]))
                     rmsk_ch=rmsk_ch+b
-    print len(rmsk_ch)
-    print len(set(cov_ch)&set(rmsk_ch))
+    print(len(rmsk_ch))
+    print(len(set(cov_ch)&set(rmsk_ch)))
     return(chr, repeattype, len(cov_ch), len(rmsk_ch), len(set(cov_ch)&set(rmsk_ch)))
+
 
 if __name__=="__main__":
     #ali=cov_no(cov, rmsk, "I", "LINE")

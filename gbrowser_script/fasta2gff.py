@@ -3,6 +3,7 @@
 
 import argparse
 from Bio import SeqIO
+
 def fasta2gff(fastafile):
     "open a fatsafile, count the length, then write a gff file for Gbrowse useage"
     handle = open(fastafile, "rU")
@@ -13,6 +14,7 @@ def fasta2gff(fastafile):
         writer.write((name+"\tfasta\tchr\t1\t"+length+"\t.\t.\t.\tName="+name+"\n"))
     writer.close()
     handle.close()
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("fasta")

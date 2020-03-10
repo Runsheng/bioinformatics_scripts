@@ -48,4 +48,4 @@ if __name__=="__main__":
 
     # main code
     phred_to_number(args.filename)
-    print "The phred scores of %s have been written to %s" % (args.filename, "score.txt")
+    print("The phred scores of %s have been written to %s" % (args.filename, "score.txt"))

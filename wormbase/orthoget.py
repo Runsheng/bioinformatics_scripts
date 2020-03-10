@@ -3,7 +3,7 @@
 # get a function to wrap all the para into one function to run in shell
 import argparse
 
-def orth_to_list(orthfile):
+def ortho_to_list(orthfile):
     gene_l=[]
     with open(orthfile, "r") as f:
         full_gene=f.read()
@@ -47,7 +47,7 @@ def sp2_extract(gene_l, name):
 if __name__=="__main__":
     parser = argparse.ArgumentParser(description="""\n
         To get the 1:n orthology pairs of C.elegans:human, using the orthology table for C.elegans \n
-        Example: python orthget.py -f c_elegans.PRJNA275000.WS250.orthologs.txt -s Homo sapiens -o 2.txt #get the c.elegans orthlog with human form the file.
+        Example: python orthoget.py -f c_elegans.PRJNA275000.WS250.orthologs.txt -s Homo sapiens -o 2.txt #get the c.elegans orthlog with human form the file.
         """)
     parser.add_argument("--wormbase_orth_file","-f", help= "WormBase ortholog table can be fetched from wombase ftp directly")
     parser.add_argument("--species_name", "-s")
@@ -55,15 +55,15 @@ if __name__=="__main__":
     args = parser.parse_args()
 
 
-    gene_l=orth_to_list(args.wormbase_orth_file)
+    gene_l=ortho_to_list(args.wormbase_orth_file)
     orth=sp2_extract(gene_l, args.species_name)
-    print("All gene number in the wormbase orthlog table file is %d" % len(gene_l))
-    print("The orth table with %s is %d long") % (args.species_name,len(orth))
+    print("All gene number in the wormbase ortholog table file is %d" % len(gene_l))
+    print("The ortholog table with %s is %d long") % (args.species_name,len(orth))
     with open(args.outfile, "w") as f:
         for line in orth:
             a,b=line
             f.write(a+"\t"+b+"\n")
 
 
-# example python orthget.py -f "c_elegans.PRJNA275000.WS250.orthologs.txt" -s "Homo sapiens" -o 2.txt
+    # example python orthoget.py -f "c_elegans.PRJNA275000.WS250.orthologs.txt" -s "Homo sapiens" -o 2.txt
 
