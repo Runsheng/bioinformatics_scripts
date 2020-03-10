@@ -1,5 +1,5 @@
 # Collection of Raw bioinformatics scripts 
-### bioinformatics scripts written in python or R, remained for refactoring. \
+### bioinformatics scripts written in python or R. 
 * bam2bigGenePred.py: convert the long read RNA-seq mapping bam file to a bigGenePred format, which can be viewed by UCSC browser or by igv
 * factor_no.r:  a single r function to parse the factor col and turn them into numbers
 * fun_ch.py: one single function to calculate the intersection of a bed coverage file and a rmsk repeat annotation file to return the coverage of the repeat unit (Warning: takes ultra-long time for a large set, use bedtools for large intersection instead)
