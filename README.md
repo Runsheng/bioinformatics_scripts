@@ -8,3 +8,8 @@
 * line10x.py: duplicate each line of the file to 10 or more times, can be used to fulfill the format need of sspace scaffolder or other wired packages
 * N50.py: get the N50 or Nxx for a genome assembly (fasta format), need biopython. 
 
+### folders
+1. blastz: The scripts for whole genome alignment with blastz (replaced by lastz now).
+2. gbrowser_script: The scripts example used for the loading of WormBase gff to MySQL based Gbrowser database.
+3. moleculo_script: The scripts used in the processing of the Illumina Synthetic Long Read (Illumina SLR), previously known as meleculo reads and inherited as 10X genomics long reads.  
+4. wormbase: Collections of the script used to parse the dataset from WormBase ftp. 
