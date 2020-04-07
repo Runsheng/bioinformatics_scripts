@@ -3,7 +3,6 @@
 
 from __future__ import print_function
 from pysam import AlignmentFile
-import argparse
 
 
 def count_end(pos_d):
@@ -18,6 +17,23 @@ def count_end(pos_d):
         except KeyError:
             end_d[end] = 1
     return end_d
+
+
+def count_start(pos_d):
+    """
+    count the start of the reads
+    :param pos_d:
+    :return:
+    """
+
+    start_d={}
+    for k, v in pos_d.items():
+        start, end=v
+        try:
+            start_d[start] += 1
+        except KeyError:
+            start_d[start] = 1
+    return start_d
 
 
 def filter_end(end_d, min_coverage=2):
@@ -107,6 +123,7 @@ def scan_span_dic(pos_d, end_d, end_group_d):
 
 
 if __name__ == "__main__":
+    import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("-b", "--bamfile",
                         help="the sorted and indexed bam file")
@@ -119,6 +136,9 @@ if __name__ == "__main__":
     parser.add_argument("-c", "--coverage_ratio", type=float, default=0.001,
                         help="the min coverage/count ratio of the end reads and spanning reads to be printed")
 
+    parser.add_argument("-m", "--mode", type=str, default="end",
+                        help="count the 3' end or the 5' start can be adjusted using the mode parameter")
+
     args = parser.parse_args()
     samfile = AlignmentFile(args.bamfile)
 
@@ -128,7 +148,11 @@ if __name__ == "__main__":
         pos_d[read.qname] = (read.reference_start, read.reference_end)
 
     ### pipeline:
-    end_d = count_end(pos_d)
+    if args.mode=="end":
+        end_d = count_end(pos_d)
+    else:
+        end_d=count_start(pos_d)
+
     end_d_f = filter_end(end_d, args.end_coverage)
     end_group_d = group_end(end_d_f, args.region_offset)
     ratio_d = scan_span_dic(pos_d, end_d_f, end_group_d)
