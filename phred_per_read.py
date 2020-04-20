@@ -26,8 +26,8 @@ def phred_to_number(fastqfile):
     #         '@': 31, 'C': 34, 'B': 33, 'E': 36, 'D': 35, 'G': 38, 'F': 37, 'I': 40,
     #         'H': 39, 'J': 41, 'K': 42, 'L': 43, 'M': 44, 'N': 45}
 
-    phred=zip("""!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~""",
-                 range(0, 94))
+    phred=dict(zip("""!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~""",
+                 range(0, 94)))
 
     fr=open(fastqfile, "r")
     fastq = fr.readlines()
