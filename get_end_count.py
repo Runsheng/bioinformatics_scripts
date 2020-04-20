@@ -163,6 +163,6 @@ if __name__ == "__main__":
         n_stop, n_span = v
         ratio = float(n_stop) / (n_stop + n_span)
         if ratio >= args.coverage_ratio:
-            print(k, n_stop, n_span)
+            print("{}\t{}\t{}".format(k, n_stop, n_span))
 
     samfile.close()
