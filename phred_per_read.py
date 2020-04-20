@@ -34,7 +34,13 @@ def phred_to_number(fastqfile):
     for n in range(0, count):
         name = fastq[4 * n]
         qualityscore = fastq[4 * n + 3]
-        score_one=[phred[i] for i in qualityscore]
+        score_one=[]
+        for i in qualityscore:
+            try:
+                score_one.append(phred[i])
+            except KeyError as e:
+                logging.warnings("score char not in sanger 0-45 range", e)
+
         score_one_mean=mean(score_one)
         #  Note the last word in qyalityscore is "\n"
         print("{}\t{}".format(name, score_one_mean))
