@@ -27,7 +27,7 @@ def phred_to_number(fastqfile):
              'H': 39, 'J': 41, 'K': 42, 'L': 43, 'M': 44, 'N': 45}
 
     fr=open(fastqfile, "r")
-    fastq = fr.readline()
+    fastq = fr.readlines()
     count = len(fastq) / 4
     score_reads=[]
 
@@ -45,16 +45,12 @@ def phred_to_number(fastqfile):
 
     fr.close()
 
-
-
 if __name__=="__main__":
     import argparse
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-f", "--filename", type=str, help="the fastq file you use here")
-    parser.add_argument("-o", "--output", type=str, default="score.txt", help="the fastq file you use here")
     args = parser.parse_args()
 
     # main code
     phred_to_number(args.filename)
-    logging.info("The phred scores of %s have been written to %s" % (args.filename, args.output))
