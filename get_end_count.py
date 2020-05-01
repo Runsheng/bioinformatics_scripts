@@ -65,10 +65,13 @@ def group_end(end_d_f, offset=5):
 
     # Iterate through pairs of numbers
     for previous, current in zip(previous_sequence, current_sequence):
-        if abs(previous - current) >= offset:
-            # Large gap, we create a new empty sublist
-            groups.append([])
-        # Keep appending to the last sublist
+        try:
+            if abs(previous - current) >= offset:
+                # Large gap, we create a new empty sublist
+                groups.append([])
+            # Keep appending to the last sublist
+        except TypeError:
+            pass
         groups[-1].append(current)
 
     # print(groups)
