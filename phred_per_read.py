@@ -30,25 +30,31 @@ def phred_to_number(fastqfile):
                  range(0, 94)))
 
     fr=open(fastqfile, "r")
-    fastq = fr.readlines()
-    count = len(fastq) / 4
+
+    n=0
     score_reads=[]
 
-    for n in range(0, count):
-        name = fastq[4 * n]
-        qualityscore = fastq[4 * n + 3]
-        score_one=[]
-        for i in qualityscore:
-            try:
-                score_one.append(phred[i])
-            except KeyError as e:
-                logging.warn("score char not in sanger 0-45 range", e)
+    for line in fr.readlines():
+        # parser name
+        if line.startswith("@"):
+            name=line.split(" ")[0].replace("@", "")
+            n=1
+        else:
+            if n==3:
+                qualityscore=line.strip()
+                score_one = []
+                for i in qualityscore:
+                    try:
+                        score_one.append(phred[i])
+                    except KeyError as e:
+                        logging.warn("score char not in phred64 range, try sanger instead", e)
 
-        score_one_mean=mean(score_one)
-        #  Note the last word in qyalityscore is "\n"
-        print("{}\t{}".format(name, score_one_mean))
-
-        score_reads.append(score_one_mean)
+                score_one_mean = mean(score_one)
+                print("{}\t{}\t{}".format(name, len(score_one),score_one_mean))
+                score_reads.append(score_one_mean)
+                n=0
+            else:
+                n=n+1
 
     logging.info("The mean and median of the quality score are {} and {}".format(mean(score_reads), median(score_reads)))
 
