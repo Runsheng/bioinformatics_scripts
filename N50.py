@@ -9,17 +9,19 @@ from Bio import SeqIO
 import argparse
 import os,sys
 
+
 def fasta2length(fastafile):
     """
     Give a fasta file name, return a dict contains the name and seq
     Require Biopython SeqIO medule to parse the sequence into dict, a large genome may take a lot of RAM
     """
     len_list=[]
-    handle=open(fastafile, "rU")
+    handle=open(fastafile, "r")
     for contig in SeqIO.parse(handle,"fasta"):
         len_list.append(len(contig))
     handle.close()
     return len_list
+
 
 def N50_np(len_np, cut=50):
     """
