@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time    : 8/3/2020 4:37 PM
 # @Author  : Runsheng     
-# @File    : pararun.py
+# @File    : runpara.py
 
 """
 A general para runner for the functions with only one input file/para
@@ -97,7 +97,17 @@ def get_prefix(bamlist):
 
 
 if __name__=="__main__":
-    parser = argparse.ArgumentParser()
+
+    example_text = '''example:
+    ### example to run the bedtools intersection for all bed files with the nr3c1exon.gtf file
+    runpara.py -f . -s bed -p 20 -c "bedtools intersect  -a prefix.bed -b nr3c1exon.gtf -wa | uniq > prefix_nr3c1.bed"
+    '''
+
+    parser = argparse.ArgumentParser(prog='runpara',
+                                     description='Run bash cmd lines for files with the same surfix',
+                                     epilog=example_text,
+                                     formatter_class=argparse.RawDescriptionHelpFormatter)
+
     parser.add_argument("-f", "--folder",help="the folder containing all files")
     parser.add_argument("-s", "--suffix", help="the suffix of the files")
     parser.add_argument("-p", "--core",default=10, help="the cores used")
