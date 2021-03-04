@@ -61,9 +61,7 @@ def get_file_round(wkdir=None, key1="round1"):
         wkdir=os.getcwd()
     os.chdir(wkdir)
     key=key1.replace("1", "")
-
     file_name_l=glob("*"+key+"*")
-    print(file_name_l)
     if file_name_l>1:
         num_l=[]
         for filename in file_name_l:
