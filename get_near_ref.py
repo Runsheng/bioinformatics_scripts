@@ -21,6 +21,7 @@ import operator
 from collections import OrderedDict
 
 
+
 def myexe(cmd, timeout=0):
     """
     a simple wrap of the shell
@@ -36,11 +37,11 @@ def myexe(cmd, timeout=0):
     proc=subprocess.Popen(cmd, shell=True, preexec_fn=setupAlarm,
                           stdout=subprocess.PIPE, stderr=subprocess.PIPE,cwd=os.getcwd())
     out, err=proc.communicate()
-    print(err)
+    logging.warning(err)
     return out, err, proc.returncode
 
 
-def fastq2dic(fastqfile):
+def fasta2dic(fastqfile):
     """
     Give a fastq file name, return a dict contains the name and seq
     Require Biopython SeqIO medule to parse the sequence into dict, a large readfile may take a lot of RAM
@@ -49,7 +50,7 @@ def fastq2dic(fastqfile):
         handle=gzip.open(fastqfile, "rU")
     else:
         handle=open(fastqfile, "rU")
-    record_dict=SeqIO.to_dict(SeqIO.parse(handle, "fastq"))
+    record_dict=SeqIO.to_dict(SeqIO.parse(handle, "fasta"))
     handle.close()
     return record_dict
 
@@ -67,20 +68,45 @@ def chr_select(record_dict, chro):
     return name,seq
 
 
-def wrapper_run_get_bedfile(ref, fastq, core=32):
+def wrapper_run_get_bedfile(ref, fastq,  core=32, qscore=0, mapper="minimap2"):
 
-    cmd_minimap2="""
-    minimap2 -ax map-ont -t {core} {ref} {fastq} > map.sam
-    samtools view -F 4 -b map.sam > map.bam
+    """
+    :param ref:
+    :param fastq:
+    :param core:
+    :param qscore:
+    :param mapper: minimap2 or bwa, bwa will use bwa mem
+    :return:
+    """
+    if mapper=="minimap2":
+        cmd_minimap2="""
+        minimap2 -ax map-ont -t {core} {ref} {fastq} > map.sam
+        """.format(ref=ref, fastq=fastq, core=core, qscore=qscore)
+        cmd_use=cmd_minimap2
+
+    if mapper=="bwa":
+        cmd_bwa="""
+        bwa mem -t {core} {ref} {fastq} | samtools view -h  -F 260 -q {qscore} -o map.sam
+        """.format(ref=ref, fastq=fastq, core=core, qscore=qscore)
+        cmd_use=cmd_bwa
+
+    logging.warning(cmd_use)
+    myexe(cmd_use)
+
+    prefix=ref.split("/")[-1].split(".")[0]
+
+    cmd_samtools="""
+    samtools view -h -F 260 -q {qscore} -b map.sam > map.bam
     samtools sort map.bam > maps.bam
-    bedtools genomecov -ibam maps.bam -bga > {ref}.bed 
+    samtools index maps.bam
+    bedtools genomecov -ibam maps.bam -bga > {prefix}.bed 
     rm map.sam
     rm map.bam
-    """.format(ref=ref, fastq=fastq, core=core)
-    print(cmd_minimap2)
-    print(myexe(cmd_minimap2))
+    """.format(qscore=qscore, prefix=prefix)
+    logging.warning(cmd_samtools)
+    myexe(cmd_samtools)
 
-    return ref+".bed"
+    return prefix+".bed"
 
 
 def bed_parser_get_higest_coverage(bedfile):
@@ -100,11 +126,11 @@ def bed_parser_get_higest_coverage(bedfile):
         except KeyError:
             cov_sum[name] = (int(end) - int(start)) * int(coverage)
     sorted_d = sorted(cov_sum.items(), key=operator.itemgetter(1), reverse=True)
-    print(sorted_d[0])
-
+    logging.warning(sorted_d[:10]) # show top 10 in logger
+    chrname=str(sorted_d[0][0])
+    logging.warning("the highest coverage reference is: "+chrname)
     f.close()
-    
-
+    return chrname
 
 
 if __name__=="__main__":
@@ -113,18 +139,24 @@ if __name__=="__main__":
         get_near_ref.py -r ref.fasta -f read.fastq > near1.fasta 
         '''
 
-    parser = argparse.ArgumentParser(prog='runpara',
-                                     description='Run bash cmd lines for files with the same surfix',
+    parser = argparse.ArgumentParser(prog='get_near_ref.py',
+                                     description='Run bash cmd lines for files',
                                      epilog=example_text,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
 
     parser.add_argument("-f", "--file", help="the fastq file")
     parser.add_argument("-r", "--reference", help="the reference file")
     parser.add_argument("-c", "--core", help="the core", default= 32)
+    parser.add_argument("-q", "--qscore", help="the qscore used to filter the bam file", default= 0)
+    parser.add_argument("-m", "--mapper", help="the mapper used to map, can be minimap2 or bwa", default="minimap2")
 
     args = parser.parse_args()
 
-    ref_bed=wrapper_run_get_bedfile(args.reference, args.file, args.core)
-    bed_parser_get_higest_coverage(ref_bed)
+    ref_bed=wrapper_run_get_bedfile(args.reference, args.file, args.core, args.qscore, args.mapper)
+    chrname=bed_parser_get_higest_coverage(ref_bed)
+    fa_dic=fasta2dic(args.reference)
+    name, seq=chr_select(fa_dic, chrname)
+    print(">{name}\n{seq}\n".format(name=name, seq=seq))
+
 
 
