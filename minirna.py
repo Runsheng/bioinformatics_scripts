@@ -4,7 +4,7 @@
 # @Author  : Runsheng     
 # @File    : minirna.py
 """
-For a folder containing mutiple fastq files,
+For a folder containing muti fastq files,
 Run a general RNA-seq mapping for this folder
 parameters can be adjusted : core, intronlength, seed for mapping (k)
 """

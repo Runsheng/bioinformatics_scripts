@@ -1,13 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
 # third part package import
 from pysam import AlignmentFile
-
-# personal package import 
-from LR_toolkit.utils import fasta2dic, chr_select
-
 
 class bigGenePred(object):
     """
@@ -184,7 +179,6 @@ def sam_to_bigGenePred(record):
     bigg.exonFrames=[-1 for i in range(0, bigg.blockCount)]
     
     return bigg
-
 
  if __name__=="__main__":
  	import argparse
