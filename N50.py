@@ -3,8 +3,6 @@
 #@Date: 2016-03-31 16:47:07
 #@Author: runsheng, runsheng.lee@gmail.com
 
-# todo: add reletive path support for the script
-
 from Bio import SeqIO
 import argparse
 import os,sys
@@ -37,15 +35,13 @@ def N50_np(len_np, cut=50):
         if count>=cutoff:
             break
     
-    print "N%d is %d bp." % (cut, i)
+    print ( "N%d is %d bp." % (cut, i))
     
     return i
 
 
 
 if __name__=="__main__":
-    #filedir = sys.path.append(os.path.realpath('..'))
-    #print filedir
     parser = argparse.ArgumentParser("""
     Usage: N50.py fastafile.fa -c 50
     """)
