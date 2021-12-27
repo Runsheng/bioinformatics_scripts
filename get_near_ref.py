@@ -21,7 +21,6 @@ import operator
 from collections import OrderedDict
 
 
-
 def myexe(cmd, timeout=0):
     """
     a simple wrap of the shell
