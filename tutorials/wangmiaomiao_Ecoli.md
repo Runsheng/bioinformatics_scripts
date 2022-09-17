@@ -24,6 +24,8 @@ guppy_basecaller -i . \
         minimap2 -ax map-ont -t 32  \
             GCF_000005845.2_ASM584v2_genomic.fna  \
             20201124_L.fastq >L.sam
+        samtools sort L.sam > L.bam
+        samtools index L.bam
         htseq-count --format=sam --stranded="no" \
             L.sam \
             GCF_000005845.2_ASM584v2_genomic.gff \
