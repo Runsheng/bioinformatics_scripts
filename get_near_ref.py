@@ -149,7 +149,8 @@ if __name__=="__main__":
     parser.add_argument("-q", "--qscore", help="the qscore used to filter the bam file", default= 0)
     parser.add_argument("-m", "--mapper", help="the mapper used to map, can be minimap2 or bwa", default="minimap2")
 
-    args = parser.parse_args()
+    args = parser.parse_args(args=None if sys.argv[1:] else ['--help'])
+
 
     ref_bed=wrapper_run_get_bedfile(args.reference, args.file, args.core, args.qscore, args.mapper)
     chrname=bed_parser_get_higest_coverage(ref_bed)

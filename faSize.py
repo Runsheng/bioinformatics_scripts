@@ -33,6 +33,7 @@ def write_len(len_list, filename="out.sizes"):
 
 
 if __name__=="__main__":
+    import sys
 
     example_text = '''example:
         ### example to run the faSize 
@@ -46,7 +47,7 @@ if __name__=="__main__":
     parser.add_argument("-f", "--file", help="input file in fasta/fastq format")
     parser.add_argument("-o", "--output", help="the two column text file for name:size")
     parser.add_argument("-t", "--filetype", help="the file is fastq or fasta", default="fasta")
-    args = parser.parse_args()
+    args = parser.parse_args(args=None if sys.argv[1:] else ['--help'])
 
     #main
     len_l=fa_size(fastafile=args.file, filetype=args.filetype)

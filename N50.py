@@ -47,7 +47,7 @@ if __name__=="__main__":
     """)
     parser.add_argument("-f", "--filename",help="the fasta file")
     parser.add_argument("-c", "--cut", type=float, default=50, help="the N?? you want to get, the defulat is N50")
-    args = parser.parse_args()
+    args = parser.parse_args(args=None if sys.argv[1:] else ['--help'])
 
     #filename = os.path.join(filedir, args.filename)
     # main code

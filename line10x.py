@@ -25,15 +25,16 @@ def pasta_lines(filename,times,out="default"):
 	fw.close()
 
 if __name__=="__main__":
+	import sys
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-f", "--filename",help="the file you use here")
 	parser.add_argument("-t", "--times", type=int, default=10,
                     help="the times you want to add to your file")
 	parser.add_argument("-o", "--out", default="default",
                     help="the out filename")
-	args = parser.parse_args()
+	args = parser.parse_args(args=None if sys.argv[1:] else ['--help'])
 
 	# main code
 	pasta_lines(args.filename, args.times,args.out)
-	print "Paste lines from %s for %d times!" % (args.filename, args.times)
+	print ("Paste lines from %s for %d times!" % (args.filename, args.times))
 
