@@ -20,7 +20,7 @@ def cov_no(cov, rmsk, chr, repeattype):
         if line.split("\t")[0]=="%s" % chr:
             a=range(int(line.split("\t")[1]),int(line.split("\t")[2]))
             cov_ch=cov_ch+a
-    print len(cov_ch)
+    print (len(cov_ch))
     rmsk_ch=[]
     for line in rmsk:
         if repeattype =="all":
@@ -48,7 +48,7 @@ if __name__=="__main__":
         for chr in ["I","II","III","IV","V","X"]:
             for repeattype in ["DNA","DNA?","LINE","Low_complexity","LTR","RC","rRNA","Simple_repeat","Satellite","SINE","Unknown"]:
                 ov=cov_no(cov, rmsk, chr, repeattype)
-                print ov
+                print (ov)
                 f.write(str(ov))
                 f.write("\n")
 

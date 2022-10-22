@@ -63,8 +63,8 @@ if __name__=="__main__":
     parser.add_argument("-s", "--step", default=0,
                         help="the bin size used")
 
-    args = parser.parse_args()
 
+    args = parser.parse_args(args=None if sys.argv[1:] else ['--help'])
     # make a file using the functions
     chr_list=get_chrlist(chrsize_txt=args.fa_size)
     bed_generate(chr_list=chr_list, binsize=int(args.bin), step=int(args.step))
