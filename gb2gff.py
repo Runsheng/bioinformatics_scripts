@@ -20,9 +20,9 @@ def gb2gff(gbname):
 	with open(gbname) as in_handle:  # have to reopen the file
 		count =SeqIO.write(SeqIO.parse(in_handle,"genbank"),out_fasta,"fasta")
 
- 	out_gff.close()
- 	out_fasta.close()
+	out_gff.close()
+	out_fasta.close()
 
- 	print("Converted %i records" % count)
+	print("Converted %i records" % count)
 if __name__ == "__main__":
 	gb2gff(*sys.argv[1:])
